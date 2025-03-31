@@ -1,4 +1,5 @@
 package com.luna.app.entidades;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "producto")
 @Validated
+
 public class Producto {
 
     @Id
@@ -31,6 +33,7 @@ public class Producto {
     private int stock;
 
     public Producto() {
+
     }
 
     public Producto(long id, String descripcion, double precio, int stock) {
@@ -77,7 +80,4 @@ public class Producto {
         this.stock = stock;
     }
 
-    
-
 }
-

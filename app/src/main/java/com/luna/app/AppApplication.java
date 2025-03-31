@@ -24,7 +24,7 @@ public class AppApplication implements CommandLineRunner{
 	
 	@Autowired
 	private VentaRepositorio	ventaRepositorio; 
-
+//
 	public static void main(String[] args) {
 		SpringApplication.run(AppApplication.class, args);
 	}

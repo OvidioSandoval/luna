@@ -12,18 +12,25 @@ import java.util.Optional;
 
 @Service
 @Validated
+
 public class ProductoService {
 
     @Autowired
     private ProductoRepositorio productoRepositorio;
 
+    // Constructor obtener productos 
+
     public List<Producto> obtenerProductos() {
         return productoRepositorio.findAll();
     }
 
+    // Constructor obtener productos por id
+
     public Optional<Producto> obtenerPorId(Long id) {
         return productoRepositorio.findById(id);
     }
+
+    // Constructor crearProducto
 
     public Producto crearProducto(@RequestBody Producto producto) {
         List<Producto> productosEncontrados = productoRepositorio.findByDescripcion(producto.getDescripcion());
@@ -47,6 +54,8 @@ public class ProductoService {
 
     }
 
+    // Constructor actualizar producto
+
     public Producto actualizarProducto(Long id, @Validated Producto producto) {
         return productoRepositorio.findById(id).map(productoExistente -> {
             // Validaciones antes de actualizar
@@ -58,20 +67,25 @@ public class ProductoService {
             }
 
             // Actualiza solo los valores necesarios
+
             productoExistente.setDescripcion(producto.getDescripcion());
             productoExistente.setPrecio(producto.getPrecio());
             productoExistente.setStock(producto.getStock());
 
             // Guarda y devuelve el producto actualizado
+
             return productoRepositorio.save(productoExistente);
         }).orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
+
+    // Constructor eliminar producto
 
     public Producto eliminarProducto(Long id) {
         Producto productoExistente = productoRepositorio.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("No se encontró el producto con ID: " + id));
 
         // Validaciones antes de guardar
+        
         if (!productoRepositorio.existsById(id)) {
             throw new IllegalArgumentException("No se puede eliminar: Producto no encontrado con ID: " + id);
         }
